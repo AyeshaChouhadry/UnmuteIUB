@@ -1,27 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UnmuteIUB</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unmute IUB – Student Platform</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for professional icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- SPLASH SCREEN -->
+  <div id="splash-screen">
+    <div class="logo-container">
+      <div class="shield-logo">IUB</div>
+      <div class="unmute-text">Unmute <span>IUB</span></div>
+    </div>
+  </div>
 
-<!-- Navigation Bar -->
-<header class="navbar">
-  <div class="navbar-container">
-    <a href="#" class="navbar-brand">Unmute IUB</a>
+  <!-- AUTH PAGE -->
+  <div id="auth-page" style="display: none;">
+    <div class="auth-container">
+      <div class="auth-card">
+        <h2 id="auth-title">Login to Unmute IUB</h2>
+        <form id="auth-form">
+          <div id="username-field" style="display: none;">
+            <label>Username</label>
+            <input type="text" id="reg-username" placeholder="Your name" />
+          </div>
+          <label>Email</label>
+          <input type="email" id="auth-email" placeholder="you@iub.edu.pk" required />
+          <label>Password</label>
+          <input type="password" id="auth-password" placeholder="Password" required />
+          <button type="submit" class="auth-btn" id="auth-submit-btn">Login</button>
+        </form>
+        <p class="auth-toggle">
+          <span id="toggle-auth-mode">Don't have an account? <a href="#" id="switch-to-register">Register</a></span>
+        </p>
+      </div>
+    </div>
   </div>
-</header>
-<!-- Footer -->
-<footer class="footer">
-  <div class="footer-container">
-    <p>&copy; 2026 Unmute IUB – Student Community</p>
+
+  <!-- MAIN APP -->
+  <div id="app" style="display: none;">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>Unmute IUB</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="#" class="nav-link active" data-page="home"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="#" class="nav-link" data-page="trending"><i class="fas fa-fire"></i> Trending</a></li>
+          <li><a href="#" class="nav-link" data-page="saved"><i class="fas fa-bookmark"></i> Saved</a></li>
+          <li><a href="#" class="nav-link" data-page="profile"><i class="fas fa-user"></i> Profile</a></li>
+        </ul>
+        <button class="create-post-btn" id="create-post-btn"><i class="fas fa-plus"></i> Create Post</button>
+
+        <!-- Admin only links -->
+        <div class="admin-only" id="admin-links">
+          <div class="admin-section">
+            <h3>Moderation</h3>
+            <ul>
+              <li><a href="#" class="nav-link" data-page="dashboard"><i class="fas fa-chart-bar"></i> Dashboard</a></li>
+              <li><a href="#" class="nav-link" data-page="reported"><i class="fas fa-flag"></i> Reported</a></li>
+              <li><a href="#" class="nav-link" data-page="users"><i class="fas fa-users"></i> Users</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-avatar" id="userAvatar">S</div>
+        <div class="user-info">
+          <div id="userName">Student</div>
+          <div class="user-role" id="userRole">student</div>
+        </div>
+        <button id="logout-btn" class="logout-icon"><i class="fas fa-sign-out-alt"></i></button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT + RIGHT SIDEBAR -->
+    <main class="main-content">
+      <div class="main-grid">
+        <section id="dynamic-content" class="feed-column"></section>
+        <aside class="right-sidebar">
+          <div class="right-card">
+            <h4><i class="fas fa-chart-line"></i> Trending Categories</h4>
+            <ul id="trending-categories-list"></ul>
+          </div>
+          <div class="right-card">
+            <h4><i class="fas fa-trophy"></i> Top Posts</h4>
+            <ul id="top-posts-list"></ul>
+          </div>
+        </aside>
+      </div>
+    </main>
   </div>
-</footer>
-    
-    <script src="app.js"></script>
+
+  <!-- CREATE POST MODAL -->
+  <div id="create-post-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>Create Post</h2>
+        <button class="modal-close" id="close-modal">&times;</button>
+      </div>
+      <form id="create-post-form">
+        <select id="post-category" class="modal-select" required>
+          <option value="" disabled selected>Select a category</option>
+          <option value="#Scholarships">#Scholarships</option>
+          <option value="#Teachers">#Teachers</option>
+          <option value="#Assignments">#Assignments</option>
+          <option value="#Events">#Events</option>
+          <option value="#Notes">#Notes</option>
+          <option value="#General">#General</option>
+        </select>
+        <input type="text" id="post-title" class="modal-input" placeholder="Post title (optional)" />
+        <textarea id="post-body" class="modal-textarea" placeholder="What do you want to share?" rows="4" required></textarea>
+        <div class="modal-actions">
+          <button type="submit" class="modal-submit-btn"><i class="fas fa-paper-plane"></i> Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
