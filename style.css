@@ -1,0 +1,43 @@
+:root {
+  --primary-blue: #29377C;
+  --accent-gold: #E5AE32;
+  --bg-light: #f8f9fa;
+  --text-dark: #343a40;
+  --text-muted: #6c757d;
+  --white: #ffffff;
+  --border-light: #dee2e6;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif; /* IUB uses Roboto; we'll add it in next step */
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+/* ===== NAVIGATION BAR ===== */
+.navbar {
+  background-color: var(--primary-blue);
+  color: var(--white);
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: 1px;
+}
