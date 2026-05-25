@@ -3,9 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
     <title>UNmute IUB</title>
+        <!--Bootstrap 5 CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!--Custom overrides (IUB colours)-->
+    <link rel = "stylesheet" href="style.css"/>
 </head>
 <body>
-    
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg" style="background-color: #29377C;">
+        <div class="container">
+            <a class="navbar-brand text-warning fw-bold" href="#">
+                Unmute IUB
+            </a>
+        </div>
+    </nav>
+
+    <main class="container py-4">
+        <!--Filter-->
+        <div class="mb-4">
+            <label for="filterCategory" class="form-label fw-semibold">
+                Filter by Category
+            </label>
+            <select id="filterCategory" class="form-select w-auto">
+                <option value="">All Categories</option>
+                <option value="Scholarships">Scholarships</option>
+                <option value="Teachers">Teachers</option>
+                <option value="Assignments">Assignments</option>
+                <option value="Events">Events</option>
+                <option value="Notes">Notes</option>
+            </select>
+        </div>
+
+        <!--Loading / Error states-->
+        <div id="loading" class="text-centre d none">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p>Loading posts...</p>
+        </div>
+        <div id="error" class="alert alert-danger d-none"></div>
+
+        <!--Post List-->
+        <section id=""postList class="row row-cols-1 g-3 mb-5"></section>
+
+        <!--Create Post Form-->
+        <section class="card p-4 shadow-sm" style="border-top: 4px solid #E5AE32";>
+          <h3 class="mb-3">Share Something Useful</h3>
+          <form id="createPostForm" novalidate>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="author" class="form-label">Your Name *</label>
+                    <input type="text" class="form-control" id="author" required />
+                    <div class="invalid-feedback">Name is required.</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="category" class="form-label">Category *</label>
+                    <select class="form-select" id="category" required>
+                        <option value="">Choose...</option>
+                        <option>Scholarships</option>
+                        <option>Teachers</option>
+                        <option>Assignments</option>
+                        <option>Events</option>
+                        <option>Notes</option>
+                    </select>
+                    <div class="invalid-feedback">Select a category.</div>
+                </div>
+                <div class="col-12">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" required minlength="5"/>
+                    <div class="invalid-feedback">Title must be at least 5 characters.</div>
+                </div>
+                <div class="col-12">
+                    <label for="body" class="form-label">Post Content *</label>
+                    <textarea class="form-control" id="body" rows="3" required minlength="10"></textarea>
+                    <div class="invalid-feedback"> Please write at least 10 characters.</div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-warning fw-bold">Post</button>
+                </div>
+            </div>
+          </form>
+        </section>
+    </main>
+    <script src="app.js"></script>
 </body>
 </html>
