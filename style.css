@@ -1,0 +1,5 @@
+/* Custom IUB touches – used with Bootstrap */
+.navbar { border-bottom: 3px solid #E5AE32; }
+.card { transition: box-shadow 0.2s; }
+.card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+.badge { font-size: 0.75rem; }
