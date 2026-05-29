@@ -1,5 +1,47 @@
-/* Custom IUB touches – used with Bootstrap */
-.navbar { border-bottom: 3px solid #E5AE32; }
+/* ====== SPLASH SCREEN ====== */
+.splash-screen {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease;
+  opacity: 1;
+}
+.splash-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.shield-logo {
+  width: 100px; height: 110px;
+  background: #29377C;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex;
+  justify-content: center; align-items: center;
+  margin: 0 auto 1rem;
+  color: white; font-size: 2rem; font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.unmute-text {
+  font-size: 2.5rem; font-weight: 700; color: #29377C;
+}
+.unmute-text span { color: #E5AE32; }
+
+/* ====== SIDEBAR ====== */
+.sidebar {
+  background-color: #29377C;
+  min-height: 100vh;
+  color: white;
+  border-right: 2px solid #E5AE32;
+}
+.sidebar .nav-link:hover {
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 5px;
+}
+.sidebar .nav-link i { width: 20px; text-align: center; }
+
+/* ====== CARDS ====== */
 .card { transition: box-shadow 0.2s; }
 .card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
-.badge { font-size: 0.75rem; }

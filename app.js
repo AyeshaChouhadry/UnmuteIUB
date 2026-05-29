@@ -1,4 +1,4 @@
-const API = 'http://localhost:300/posts';
+const API = 'http://localhost:3000/posts';
 
 //DOM elements
 const postList = document.getElementById("postList");
@@ -29,6 +29,7 @@ async function fetchPosts(category = ""){
             throw new Error(`HTTP error ! status:${response.status}`);
         }
         const posts = await response.json();
+        renderPosts(posts); 
         hideError();
     }
      catch (err) {
@@ -54,7 +55,7 @@ function renderPosts(posts) {
     <h5 class="card-title">${escapeHTML(post.title)}</h5>
     <p class="card-text">${escapeHTML(post.body)}</p>
     <footer class="blackquote-footer mt-2">
-    ${escapeHTML(post.author)} $middot; ${post.date}
+    ${escapeHTML(post.author)}  &middot; ${post.date}
          </footer>
         </div>
        </div>
@@ -82,7 +83,7 @@ function hideError(){
 }
 
 // Filter
-filterCategory,addEventListener('change',(e)=> {
+filterCategory.addEventListener('change',(e)=> {
   currentCategory = e.target.value;
   fetchPosts(currentCategory);
 });
@@ -94,7 +95,7 @@ createPostForm.addEventListener('submit' , async (e)=> {
    //clear previous validation styles
    createPostForm.classList.add('was-validated');
 
-   if (!createPostForm.checkValidity()) retutrn;
+   if (!createPostForm.checkValidity()) return;
 
    const newPost = {
     title : titleInput.value.trim(),
@@ -111,7 +112,7 @@ createPostForm.addEventListener('submit' , async (e)=> {
       body: JSON.stringify(newPost)
     });
 
-   if (!reponse.ok) throw new Error('Failed to create post');
+   if (!res.ok) throw new Error('Failed to create post');
 
    //Clear Form
    createPostForm.reset();
