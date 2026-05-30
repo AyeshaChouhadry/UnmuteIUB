@@ -4,7 +4,7 @@
       "id": "1",
       "title": "Honhaar Scholarship - Document Verification",
       "category": "Scholarships",
-      "body": "To get your documents verified , you should go to the Tabish Alwari Building . Get your transcripts from Registrar Office (Room 12) .",
+      "body": "To get your documents verified ...",
       "author": "Ayesha Chouhadry",
       "date": "2026-05-10"
     },
@@ -12,7 +12,7 @@
       "id": "2",
       "title": "CS-201 Data Structures : Best Professor?",
       "category": "Teachers",
-      "body": "Dr.Omer Ajaml covers the concept very well and share handouts with important detail . The paper Checking also seems sensible.",
+      "body": "Dr.Omer Ajaml covers the concept ...",
       "author": "Maham Ashraf",
       "date": "2026-06-10"
     },
@@ -20,7 +20,7 @@
       "id": "3",
       "title": "Annual Tech Fest - Registeration open!",
       "category": "Events",
-      "body": "Register your team before May 30th at the Student Affairs Office.",
+      "body": "Register your team ...",
       "author": "Imama Masood",
       "date": "2026-06-14"
     },
@@ -28,10 +28,9 @@
       "id": "4",
       "title": "CM Laptop Scheme : Portals Open?",
       "category": "Events",
-      "body": "The Portals for CM laptop Scheme has Opened. If you have 65% and above marks in intermediate, you can apply right now. Do not miss this golden chance . ",
+      "body": "The Portals for CM laptop Scheme ...",
       "author": "Bisma Ijaz",
       "date": "2026-06-14"
     }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
 }

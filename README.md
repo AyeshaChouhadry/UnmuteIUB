@@ -36,3 +36,9 @@ It consists of:
 - ✅ Semantic HTML and Bootstrap styling
 
 ## Screenshots
+
+### User Panel
+![User panel showing posts and sidebar]![alt text](<student-panel.png>)
+
+### Admin Panel
+![Admin panel with edit/delete buttons and stats]![alt text](<admin-panel.png>)

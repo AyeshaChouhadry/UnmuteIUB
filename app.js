@@ -54,7 +54,7 @@ function renderPosts(posts) {
     <span class="badge bg-warning text-dark mb-2">${post.category}</span>
     <h5 class="card-title">${escapeHTML(post.title)}</h5>
     <p class="card-text">${escapeHTML(post.body)}</p>
-    <footer class="blackquote-footer mt-2">
+    <footer class="blockquote-footer mt-2">
     ${escapeHTML(post.author)}  &middot; ${post.date}
          </footer>
         </div>
