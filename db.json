@@ -32,6 +32,6 @@
       "author": "Bisma Ijaz",
       "date": "2026-06-14"
     }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
+  
 }
