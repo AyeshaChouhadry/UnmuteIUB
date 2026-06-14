@@ -1,20 +1,12 @@
 {
   "posts": [
     {
-      "id": "1",
       "title": "Honhaar Scholarship - Document Verification",
       "category": "Scholarships",
-      "body": "To get your documents verified ...",
+      "body": "To get your documents djidf",
       "author": "Ayesha Chouhadry",
-      "date": "2026-05-10"
-    },
-    {
-      "id": "2",
-      "title": "CS-201 Data Structures : Best Professor?",
-      "category": "Teachers",
-      "body": "Dr.Omer Ajaml covers the concept ...",
-      "author": "Maham Ashraf",
-      "date": "2026-06-10"
+      "date": "2026-05-10",
+      "id": "1"
     },
     {
       "id": "3",
@@ -33,5 +25,5 @@
       "date": "2026-06-14"
     }
   ]
-  
+
 }

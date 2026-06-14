@@ -132,3 +132,27 @@ createPostForm.addEventListener('submit', async (e) => {
 
 // Initial load
 fetchPosts();
+
+// ========== SPLASH SCREEN & SCROLL ==========
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const splash = document.getElementById('splash');
+    const app = document.getElementById('app');
+    if (splash && app) {   // Safety check in case elements are missing
+      splash.classList.add('hidden');
+      app.style.display = 'block';
+    }
+  }, 2000);
+});
+
+// The scroll button might not exist if user is on admin.html,
+// so only attach listener if the element is present.
+const scrollBtn = document.getElementById('scrollToForm');
+if (scrollBtn) {
+  scrollBtn.addEventListener('click', () => {
+    const createSection = document.getElementById('createSection');
+    if (createSection) {
+      createSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+}
