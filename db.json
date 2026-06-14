@@ -1,29 +1,52 @@
 {
   "posts": [
     {
+      "id": "1",
       "title": "Honhaar Scholarship - Document Verification",
       "category": "Scholarships",
-      "body": "To get your documents djidf",
+      "body": "To get your documents verified, visit the Tabish Alwari Building. Get your transcripts from Registrar Office Room 12. Request them at least 2 weeks in advance.",
       "author": "Ayesha Chouhadry",
-      "date": "2026-05-10",
-      "id": "1"
+      "date": "2026-05-10"
+    },
+    {
+      "id": "2",
+      "title": "CS-201 Data Structures: Best Professor?",
+      "category": "Teachers",
+      "body": "Dr. Omer Ajaml covers the concepts very well and shares handouts with important details. The paper checking also seems sensible.",
+      "author": "Maham Ashraf",
+      "date": "2026-06-10"
     },
     {
       "id": "3",
-      "title": "Annual Tech Fest - Registeration open!",
+      "title": "Annual Tech Fest - Registration Open!",
       "category": "Events",
-      "body": "Register your team ...",
+      "body": "Register your team before May 30 at the Student Affairs Office. The event will be held in the Main Auditorium.",
       "author": "Imama Masood",
       "date": "2026-06-14"
     },
     {
       "id": "4",
-      "title": "CM Laptop Scheme : Portals Open?",
-      "category": "Events",
-      "body": "The Portals for CM laptop Scheme ...",
+      "title": "CM Laptop Scheme - Portals Open?",
+      "category": "Scholarships",
+      "body": "The portal for CM Laptop Scheme has opened. If you have 65 percent or above marks in intermediate, you can apply right now. Do not miss this golden chance.",
       "author": "Bisma Ijaz",
       "date": "2026-06-14"
+    },
+    {
+      "id": "5",
+      "title": "Assignment Help: MTH-101 Calculus",
+      "category": "Assignments",
+      "body": "For Question 3, use integration by parts. Check the solved examples in the textbook, especially Chapter 5.",
+      "author": "Ali Raza",
+      "date": "2026-06-15"
+    },
+    {
+      "id": "6",
+      "title": "Midterm Notes for ENG-201",
+      "category": "Notes",
+      "body": "I have uploaded a PDF with summarised notes for the first 5 lectures. It covers all important topics. Message me if you need a copy.",
+      "author": "Sara Khalid",
+      "date": "2026-06-16"
     }
   ]
-
 }

@@ -21,6 +21,7 @@ async function fetchPosts() {
         showLoading(true);
         const res = await fetch(API);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
         const posts = await res.json();
         renderTable(posts);
         renderStats(posts);
@@ -33,16 +34,31 @@ async function fetchPosts() {
 }
 
 function renderTable(posts) {
+    if (posts.length === 0) {
+        adminTbody.innerHTML = `
+            <tr>
+                <td colspan="6" class="text-center text-muted py-4">No posts available.</td>
+            </tr>
+        `;
+        return;
+    }
+
     adminTbody.innerHTML = posts.map(post => `
         <tr>
             <td>${escapeHTML(post.id)}</td>
-            <td>${escapeHTML(post.title)}</td>
-            <td><span class="badge bg-warning text-dark">${escapeHTML(post.category)}</span></td>
+            <td class="fw-semibold">${escapeHTML(post.title)}</td>
+            <td><span class="badge badge-iub px-2 py-2">${escapeHTML(post.category)}</span></td>
             <td>${escapeHTML(post.author)}</td>
-            <td>${post.date}</td>
+            <td>${escapeHTML(post.date)}</td>
             <td>
-                <button class="btn btn-sm btn-outline-primary edit-btn" data-id="${post.id}">Edit</button>
-                <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${post.id}">Delete</button>
+                <div class="action-group">
+                    <button class="btn btn-sm btn-outline-iub edit-btn" data-id="${escapeHTML(post.id)}">
+                        <i class="fas fa-pen me-1"></i>Edit
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${escapeHTML(post.id)}">
+                        <i class="fas fa-trash me-1"></i>Delete
+                    </button>
+                </div>
             </td>
         </tr>
     `).join('');
@@ -52,52 +68,57 @@ function renderTable(posts) {
 function renderStats(posts) {
     const total = posts.length;
     const categoryCounts = {};
-    posts.forEach(p => {
-        categoryCounts[p.category] = (categoryCounts[p.category] || 0) + 1;
+
+    posts.forEach(post => {
+        categoryCounts[post.category] = (categoryCounts[post.category] || 0) + 1;
     });
-    const mostCommon = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || 'N/A';
-    const avgTitleLength = total > 0 ? Math.round(posts.reduce((sum, p) => sum + p.title.length, 0) / total) : 0;
+
+    const topCategory = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || 'N/A';
+    const avgTitleLength = total > 0 ? Math.round(posts.reduce((sum, post) => sum + post.title.length, 0) / total) : 0;
+    const latestDate = total > 0 ? posts.map(post => post.date).sort().reverse()[0] : 'N/A';
 
     statsRow.innerHTML = `
         <div class="col-md-4">
-            <div class="card text-white bg-primary p-3">
-                <h5>Total Posts</h5>
-                <p class="display-6">${total}</p>
+            <div class="stat-card">
+                <h3>Total Posts</h3>
+                <p>${total}</p>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card text-white bg-success p-3">
-                <h5>Top Category</h5>
-                <p class="display-6">${mostCommon}</p>
+            <div class="stat-card">
+                <h3>Top Category</h3>
+                <p>${escapeHTML(topCategory)}</p>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card text-white bg-info p-3">
-                <h5>Avg Title Length</h5>
-                <p class="display-6">${avgTitleLength}</p>
+            <div class="stat-card">
+                <h3>Latest Date</h3>
+                <p>${escapeHTML(latestDate)}</p>
+                <small class="text-muted">Average title length: ${avgTitleLength}</small>
             </div>
         </div>
     `;
 }
 
-// ========== DELETE (with confirmation) ==========
+// ========== DELETE ==========
 async function deletePost(id) {
     if (!confirm('Are you sure you want to delete this post?')) return;
+
     try {
         const res = await fetch(`${API}/${id}`, { method: 'DELETE' });
         if (!res.ok) throw new Error('Delete failed');
         await fetchPosts();
     } catch (err) {
-        alert('Delete error');
-        console.error(err);
+        showError('Delete failed. Please try again.');
     }
 }
 
-// ========== EDIT - Load post into form ==========
+// ========== EDIT ==========
 async function loadPostIntoForm(id) {
     try {
         const res = await fetch(`${API}/${id}`);
         if (!res.ok) throw new Error('Fetch failed');
+
         const post = await res.json();
         editId.value = post.id;
         editAuthor.value = post.author;
@@ -106,34 +127,32 @@ async function loadPostIntoForm(id) {
         editBody.value = post.body;
         editDate.value = post.date;
         editSection.classList.remove('d-none');
+        editSection.scrollIntoView({ behavior: 'smooth' });
+        hideError();
     } catch (err) {
-        alert('Could not load post for editing');
+        showError('Could not load post for editing.');
     }
 }
 
-// ========== EVENT DELEGATION (Week 7 best practice) ==========
-// One listener on the table body handles all Edit/Delete buttons,
-// including any that are added dynamically after render.
+// One listener handles Edit/Delete buttons added by renderTable.
 adminTbody.addEventListener('click', (e) => {
     const editBtn = e.target.closest('.edit-btn');
     const deleteBtn = e.target.closest('.delete-btn');
 
     if (editBtn) {
-        const id = editBtn.getAttribute('data-id');
-        loadPostIntoForm(id);
+        loadPostIntoForm(editBtn.getAttribute('data-id'));
     } else if (deleteBtn) {
-        const id = deleteBtn.getAttribute('data-id');
-        deletePost(id);
+        deletePost(deleteBtn.getAttribute('data-id'));
     }
 });
 
-// ========== UPDATE POST (PUT) ==========
+// ========== UPDATE POST ==========
 editForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (!editForm.checkValidity()) {
-        editForm.classList.add('was-validated');
-        return;
-    }
+    editForm.classList.add('was-validated');
+
+    if (!editForm.checkValidity()) return;
+
     const updatedPost = {
         title: editTitle.value.trim(),
         category: editCategory.value,
@@ -141,22 +160,24 @@ editForm.addEventListener('submit', async (e) => {
         author: editAuthor.value.trim(),
         date: editDate.value
     };
+
     try {
         const res = await fetch(`${API}/${editId.value}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updatedPost)
         });
+
         if (!res.ok) throw new Error('Update failed');
+
         editSection.classList.add('d-none');
         editForm.classList.remove('was-validated');
         await fetchPosts();
     } catch (err) {
-        alert('Update failed');
+        showError('Update failed. Please check JSON Server and try again.');
     }
 });
 
-// Cancel editing
 cancelEditBtn.addEventListener('click', () => {
     editSection.classList.add('d-none');
     editForm.classList.remove('was-validated');
@@ -182,5 +203,4 @@ function escapeHTML(str) {
     return div.innerHTML;
 }
 
-// Initial load
 fetchPosts();

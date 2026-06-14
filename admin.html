@@ -1,78 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Unmute IUB – Admin Panel</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unmute IUB - Admin Panel</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-light">
-  <!-- Admin Navbar (different colour) -->
-  <nav class="navbar navbar-dark bg-dark">
-    <div class="container">
-      <span class="navbar-brand mb-0 h1 text-warning">🔧 Admin Panel – Unmute IUB</span>
+<body class="admin-body">
+  <nav class="navbar navbar-dark admin-navbar">
+    <div class="container-fluid px-3 px-md-4">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <span class="logo-plate admin-logo">
+          <img src="assets/iub-dome.png" alt="The Islamia University of Bahawalpur dome logo">
+        </span>
+        <span class="admin-label">Admin Panel - Unmute IUB</span>
+      </a>
+      <a class="btn btn-iub" href="index.html">
+        <i class="fas fa-arrow-left me-1"></i> Student Feed
+      </a>
     </div>
   </nav>
 
-  <main class="container py-4">
-    <!-- Statistics Row -->
-    <div class="row g-3 mb-4" id="statsRow"></div>
+  <main class="container-fluid px-3 px-md-4 py-4">
+    <header class="mb-4">
+      <h1 class="page-title">Management Dashboard</h1>
+      <p class="page-subtitle">Review, edit and delete student posts stored in JSON Server.</p>
+    </header>
 
-    <!-- All Posts Table -->
-    <h2>All Posts</h2>
-    <div id="adminLoading" class="text-center d-none">
-      <div class="spinner-border text-primary"></div>
-    </div>
-    <div id="adminError" class="alert alert-danger d-none"></div>
-    <div class="table-responsive">
-      <table class="table table-striped table-hover" id="adminTable">
-        <thead class="table-dark">
-          <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Author</th>
-            <th>Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="adminTbody"></tbody>
-      </table>
-    </div>
+    <section class="row g-3 mb-4" id="statsRow" aria-label="Summary statistics"></section>
 
-    <!-- Edit Form (hidden by default) -->
-    <section id="editSection" class="card p-4 mt-4 d-none" style="border-left: 5px solid #E5AE32;">
-      <h3>Edit Post</h3>
+    <section class="table-panel mb-4">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 p-3 border-bottom">
+        <h2 class="h4 mb-0">All Posts</h2>
+        <span class="badge badge-iub px-3 py-2">Admin CRUD</span>
+      </div>
+
+      <div id="adminLoading" class="text-center py-4 d-none">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="mt-2 mb-0">Loading records...</p>
+      </div>
+      <div id="adminError" class="alert alert-danger m-3 d-none"></div>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-hover mb-0" id="adminTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Author</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="adminTbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="editSection" class="form-panel p-4 d-none">
+      <h2 class="h4 mb-3">Edit Post</h2>
       <form id="editForm" novalidate>
-        <input type="hidden" id="editId" />
+        <input type="hidden" id="editId">
         <div class="row g-3">
           <div class="col-md-6">
-            <label class="form-label">Author *</label>
-            <input type="text" class="form-control" id="editAuthor" required />
+            <label for="editAuthor" class="form-label">Author *</label>
+            <input type="text" class="form-control" id="editAuthor" required>
+            <div class="invalid-feedback">Author is required.</div>
           </div>
           <div class="col-md-6">
-            <label class="form-label">Category *</label>
+            <label for="editCategory" class="form-label">Category *</label>
             <select class="form-select" id="editCategory" required>
-              <option>Scholarships</option><option>Teachers</option>
-              <option>Assignments</option><option>Events</option><option>Notes</option>
+              <option>Scholarships</option>
+              <option>Teachers</option>
+              <option>Assignments</option>
+              <option>Events</option>
+              <option>Notes</option>
             </select>
+            <div class="invalid-feedback">Category is required.</div>
           </div>
           <div class="col-12">
-            <label class="form-label">Title *</label>
-            <input type="text" class="form-control" id="editTitle" required />
+            <label for="editTitle" class="form-label">Title *</label>
+            <input type="text" class="form-control" id="editTitle" required minlength="5">
+            <div class="invalid-feedback">Title must be at least 5 characters.</div>
           </div>
           <div class="col-12">
-            <label class="form-label">Body *</label>
-            <textarea class="form-control" id="editBody" rows="3" required></textarea>
+            <label for="editBody" class="form-label">Body *</label>
+            <textarea class="form-control" id="editBody" rows="4" required minlength="10"></textarea>
+            <div class="invalid-feedback">Body must be at least 10 characters.</div>
           </div>
           <div class="col-md-6">
-            <label class="form-label">Date *</label>
-            <input type="date" class="form-control" id="editDate" required />
+            <label for="editDate" class="form-label">Date *</label>
+            <input type="date" class="form-control" id="editDate" required>
+            <div class="invalid-feedback">Date is required.</div>
           </div>
           <div class="col-12">
-            <button type="submit" class="btn btn-warning">Update Post</button>
-            <button type="button" class="btn btn-secondary" id="cancelEdit">Cancel</button>
+            <button type="submit" class="btn btn-iub">
+              <i class="fas fa-floppy-disk me-1"></i> Update Post
+            </button>
+            <button type="button" class="btn btn-outline-secondary" id="cancelEdit">Cancel</button>
           </div>
         </div>
       </form>
